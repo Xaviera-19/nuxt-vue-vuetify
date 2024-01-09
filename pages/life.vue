@@ -14,16 +14,15 @@ main button {
 hr {
   margin: 15px 0;
 }
-.user-container{
+.user-container {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-
 </style>
 <template>
   <div>
-    <p>生命週期</p>
+    <p id="title">生命週期</p>
     <p>暱稱：{{ nickName }}</p>
     <input v-model="inputText" type="text" class="" />
     <button @click="updateNick">update</button>
@@ -35,7 +34,7 @@ hr {
     <div class="user-container">
       <v-card v-for="(item, index) in userList" :key="index">
         <p>{{ item.name.title }}.{{ item.name.first }}.{{ item.name.last }}</p>
-        <img :src="item.picture.large" alt="">
+        <img :src="item.picture.large" alt="" />
       </v-card>
     </div>
     <hr />
@@ -79,6 +78,9 @@ export default {
   },
   //進行DOM操作無效
   beforeMount() {
+    // 為綁定el 所以ㄤ底放
+    let titleText = this.$el.querySelector("#title").innerText;
+    console.log('beforemount',titleText);
     console.log("beforeMount：vue的元素已經建立完畢，還沒跟el進行綁定");
   },
   //1. 2. 在裡面呼叫都是進行非同步
@@ -86,6 +88,8 @@ export default {
     console.log(
       "mounted：vue的元素已經與網頁的元素形成羈絆，達到資料雙向的效果"
     );
+    let titleText = this.$el.querySelector("#title").innerText;
+    console.log('mount',titleText);
   },
   //
   beforeUpdate() {
