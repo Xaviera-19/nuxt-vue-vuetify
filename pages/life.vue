@@ -71,7 +71,7 @@ export default {
         console.log("B", this.userList);
       })
       .catch((error) => {
-        console.error("There was an error!", error);
+        console.error("error!", error);
       });
   },
   //vue的實體已經建立 所以DATA內的東西就能LOG出來
@@ -82,7 +82,6 @@ export default {
   },
   //template內的東西已經變成虛擬的DOM 只是還沒被放進網頁中所以還無法雙向溝通
   beforeMount() {
-    // 未綁定el 所以ㄤ底放
     console.log(this.$el);
     let titleText = this.$el.querySelector("#title")
     titleText.classList.add('redTest')
