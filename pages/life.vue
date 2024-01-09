@@ -14,6 +14,12 @@ main button {
 hr {
   margin: 15px 0;
 }
+.user-container{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 </style>
 <template>
   <div>
@@ -21,18 +27,19 @@ hr {
     <p>暱稱：{{ nickName }}</p>
     <input v-model="inputText" type="text" class="" />
     <button @click="updatevue">update</button>
-    <hr>
+    <hr />
     <p>密碼:{{ password }}</p>
     <input v-model="changePassword" type="text" class="pass" />
-    <input type="text" class="checked">
+    <input type="text" class="checked" />
     <button @click="changePass">密碼更新</button>
-    <hr>
-    <!-- <button v-on:click="destroyed()">拆橋</button> -->
-    <hr>
-    <v-card v-for="">
-      <div class="name"></div>
-    </v-card>
-    
+    <hr />
+    <div class="user-container">
+      <v-card v-for="(item, index) in userList" :key="index">
+        <p>{{ item.name.title }}.{{ item.name.first }}.{{ item.name.last }}</p>
+        <img :src="item.picture.large" alt="">
+      </v-card>
+    </div>
+    <hr />
   </div>
 </template>
 
@@ -44,7 +51,7 @@ export default {
       password: "0123456",
       inputText: "",
       changePassword: "",
-      listOne: [],
+      userList: [],
       listTwo: [],
     };
   },
@@ -56,18 +63,19 @@ export default {
       "beforeCreate：vue的元素被建立之前，像是 vue 裡面的 data methods 都會ㄤ低放"
     );
     console.log("beforeCreate：", this.nickName);
-    fetch("https://randomuser.me/api/?results=20")
+    fetch("https://randomuser.me/api/?results=5")
       .then((response) => response.json())
       .then((data) => {
-        console.log('B',data.results);
-        // 在這裡處理獲得的資料
+        // console.log("B", data.results);
+        this.userList = data.results;
+        console.log("B", this.userList);
       })
       .catch((error) => {
         console.error("There was an error!", error);
       });
   },
   //vue的實體已經建立 所以DATA內的東西就能LOG出來
-  //所以像是遊戲帳戶是要用因為密碼跟暱稱有可能被使用者更改的就可以在這取資料 
+  //所以像是遊戲帳戶是要用因為密碼跟暱稱有可能被使用者更改的就可以在這取資料
   //適合 內部API - 可以變更
   created() {
     console.log("created：", this.nickName);
@@ -103,7 +111,7 @@ export default {
     updatevue() {
       this.nickName = this.inputText;
     },
-    changePass(){
+    changePass() {
       this.password = this.changePassword;
     },
   },
