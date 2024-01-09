@@ -19,6 +19,10 @@ hr {
   display: flex;
   justify-content: space-between;
 }
+.redTest {
+  color: red;
+  font-weight: bold;
+}
 </style>
 <template>
   <div>
@@ -76,12 +80,13 @@ export default {
   created() {
     console.log("created：", this.nickName);
   },
-  //進行DOM操作無效
+  //template內的東西已經變成虛擬的DOM 只是還沒被放進網頁中所以還無法雙向溝通
   beforeMount() {
-    // 為綁定el 所以ㄤ底放
-    let titleText = this.$el.querySelector("#title").innerText;
-    console.log('beforemount',titleText);
-    console.log("beforeMount：vue的元素已經建立完畢，還沒跟el進行綁定");
+    // 未綁定el 所以ㄤ底放
+    console.log(this.$el);
+    let titleText = this.$el.querySelector("#title")
+    titleText.classList.add('redTest')
+    console.log("beforeMount：vue的元素已經建立完畢，尚未顯示在網頁上");
   },
   //1. 2. 在裡面呼叫都是進行非同步
   mounted() {
