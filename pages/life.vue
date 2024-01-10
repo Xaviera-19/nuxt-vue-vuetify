@@ -29,7 +29,7 @@ hr {
     <p id="title">生命週期</p>
     <p>暱稱：{{ nickName }}</p>
     <input v-model="inputText" type="text" class="" />
-    <button @click="updateNick">update</button>
+    <button @click="updateNick">變更為：{{ inputText }}</button>
     <hr />
     <p>密碼:{{ password }}</p>
     <input v-model="changePassword" type="text" class="pass" />
@@ -59,12 +59,13 @@ export default {
   //vue 的元素被建立之前 所以在這邊LOG nickName 會ㄤ低放
   //在這邊被叫出來的檔案不會被VUE監視 無法變成REF資料 更改了因為監視不到 畫面不會更新
   //適合外部 近來的API資料-無法變更
-  async beforeCreate() {
+  beforeCreate() {
     console.log(
       "beforeCreate：vue的元素被建立之前，像是 vue 裡面的 data methods 都會ㄤ低放"
     );
     console.log("beforeCreate：", this.nickName);
-    await fetch("https://randomuser.me/api/?results=5")
+
+    fetch("https://randomuser.me/api/?results=5")
       .then((response) => response.json())
       .then((data) => {
         this.userList = data.results;
@@ -73,6 +74,7 @@ export default {
       .catch((error) => {
         console.error("error!", error);
       });
+
     console.log(123);
   },
   //vue的實體已經建立 所以DATA內的東西就能LOG出來
