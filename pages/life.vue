@@ -59,12 +59,12 @@ export default {
   //vue 的元素被建立之前 所以在這邊LOG nickName 會ㄤ低放
   //在這邊被叫出來的檔案不會被VUE監視 無法變成REF資料 更改了因為監視不到 畫面不會更新
   //適合外部 近來的API資料-無法變更
-  beforeCreate() {
+  async beforeCreate() {
     console.log(
       "beforeCreate：vue的元素被建立之前，像是 vue 裡面的 data methods 都會ㄤ低放"
     );
     console.log("beforeCreate：", this.nickName);
-    fetch("https://randomuser.me/api/?results=5")
+    await fetch("https://randomuser.me/api/?results=5")
       .then((response) => response.json())
       .then((data) => {
         this.userList = data.results;
@@ -73,6 +73,7 @@ export default {
       .catch((error) => {
         console.error("error!", error);
       });
+    console.log(123);
   },
   //vue的實體已經建立 所以DATA內的東西就能LOG出來
   //像是遊戲帳戶是要用因為密碼跟暱稱有可能被使用者更改的就可以在這取資料
@@ -83,8 +84,8 @@ export default {
   //template內的東西已經變成虛擬的DOM 只是還沒被放進網頁中所以還無法雙向溝通
   beforeMount() {
     console.log(this.$el);
-    let titleText = this.$el.querySelector("#title")
-    titleText.classList.add('redTest')
+    let titleText = this.$el.querySelector("#title");
+    titleText.classList.add("redTest");
     console.log("beforeMount：vue的元素已經建立完畢，尚未顯示在網頁上");
   },
   //1. 2. 在裡面呼叫都是進行非同步
@@ -93,7 +94,7 @@ export default {
       "mounted：vue的元素已經與網頁的元素形成羈絆，達到資料雙向的效果"
     );
     let titleText = this.$el.querySelector("#title").innerText;
-    console.log('mount',titleText);
+    console.log("mount", titleText);
   },
   //
   beforeUpdate() {
