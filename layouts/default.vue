@@ -22,7 +22,7 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <nuxt-link v-for="(item, i) in items" :key="i" :to="item.to" exact>
+        <nuxt-link v-for="item  in items" :to="item.to" exact>
           <v-list-item-content>
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
@@ -88,8 +88,13 @@ export default {
         },
         {
           icon: "mdi-chart-bubble",
-          title: "Life",
+          title: "LifeCycle",
           to: "/life",
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "Basic",
+          to: "/basic",
         },
       ],
       miniVariant: false,

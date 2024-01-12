@@ -22,11 +22,11 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
   ],
-
+  //放插件的地方
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
   ],
-
+  //自動引入組件
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 

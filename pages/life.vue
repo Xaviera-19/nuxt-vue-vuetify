@@ -7,7 +7,7 @@ input {
 }
 main button {
   color: black;
-  background-color: beige;
+  background-color: rgb(155, 153, 248);
   border-radius: 10px;
   padding: 5px 8px;
 }
@@ -36,12 +36,19 @@ hr {
     <button @click="changePass">密碼更新</button>
     <hr />
     <div class="user-container">
-      <v-card v-for="(item, index) in userList" :key="index">
+      <v-card v-for="(item, index) in displayedUsers" :key="index">
         <p>{{ item.name.title }}.{{ item.name.first }}.{{ item.name.last }}</p>
+        <man v-if="item.gender === 'male'" />
+        <woman v-else />
         <img :src="item.picture.large" alt="" />
       </v-card>
     </div>
+    <button @click="prevPage">back</button>
+    <span>{{ currentPage + 1 }}</span>
+    <button v-if="totalPages > 1" @click="nextPage">next</button>
     <hr />
+    <button @click="toggleVisibility">顯示/隱藏</button>
+    <VuetifyLogo v-show="isVisible" />
   </div>
 </template>
 
@@ -53,19 +60,22 @@ export default {
       password: "0123456",
       inputText: "",
       changePassword: "",
-      userList: [],
+      userList: [], // randomuser的array
+      itemsPerPage: 5, // 每頁顯示的項目數
+      currentPage: 0, // 當前頁碼
+      isVisible: true,//元素隱藏顯示
     };
   },
   //vue 的元素被建立之前 所以在這邊LOG nickName 會ㄤ低放
   //在這邊被叫出來的檔案不會被VUE監視 無法變成REF資料 更改了因為監視不到 畫面不會更新
   //適合外部 近來的API資料-無法變更
-  beforeCreate() {
+  async beforeCreate() {
     console.log(
       "beforeCreate：vue的元素被建立之前，像是 vue 裡面的 data methods 都會ㄤ低放"
     );
     console.log("beforeCreate：", this.nickName);
 
-    fetch("https://randomuser.me/api/?results=5")
+    await fetch("https://randomuser.me/api/?results=15")
       .then((response) => response.json())
       .then((data) => {
         this.userList = data.results;
@@ -90,7 +100,7 @@ export default {
     titleText.classList.add("redTest");
     console.log("beforeMount：vue的元素已經建立完畢，尚未顯示在網頁上");
   },
-  //1. 2. 在裡面呼叫都是進行非同步
+  //
   mounted() {
     console.log(
       "mounted：vue的元素已經與網頁的元素形成羈絆，達到資料雙向的效果"
@@ -114,13 +124,36 @@ export default {
   destroyed() {
     console.log("destroyed：Vue實體已經被完全銷毀。");
   },
+  computed: {
+    displayedUsers() { // 顯示當前頁數該顯示的資料
+      const startIndex = this.currentPage * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.userList.slice(startIndex, endIndex);
+    },
+    totalPages() {
+      return Math.ceil(this.userList.length / this.itemsPerPage);
+    },
+  },
   //可以放置其他函式的地方
   methods: {
-    updateNick() {
+    updateNick() {  //變更暱稱
       this.nickName = this.inputText;
     },
-    changePass() {
+    changePass() {  //變更密碼
       this.password = this.changePassword;
+    },
+    nextPage() { // 下一頁
+      if (this.currentPage < this.totalPages - 1) {
+        this.currentPage++;
+      }
+    },
+    prevPage() {
+      if (this.currentPage > 0) {
+        this.currentPage--;
+      }
+    },
+    toggleVisibility() {
+      this.isVisible = !this.isVisible;
     },
   },
 };
