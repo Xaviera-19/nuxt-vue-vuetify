@@ -36,16 +36,13 @@ hr {
     <button @click="changePass">密碼更新</button>
     <hr />
     <div class="user-container">
-      <v-card v-for="(item, index) in displayedUsers" :key="index">
+      <v-card v-for="(item, index) in userList" :key="index">
         <p>{{ item.name.title }}.{{ item.name.first }}.{{ item.name.last }}</p>
         <man v-if="item.gender === 'male'" />
         <woman v-else />
         <img :src="item.picture.large" alt="" />
       </v-card>
     </div>
-    <button @click="prevPage">back</button>
-    <span>{{ currentPage + 1 }}</span>
-    <button v-if="totalPages > 1" @click="nextPage">next</button>
     <hr />
     <button @click="toggleVisibility">顯示/隱藏</button>
     <VuetifyLogo v-show="isVisible" />
@@ -75,7 +72,7 @@ export default {
     );
     console.log("beforeCreate：", this.nickName);
 
-    await fetch("https://randomuser.me/api/?results=15")
+     fetch("https://randomuser.me/api/?results=5")
       .then((response) => response.json())
       .then((data) => {
         this.userList = data.results;
@@ -95,7 +92,6 @@ export default {
   },
   //template內的東西已經變成虛擬的DOM 只是還沒被放進網頁中所以還無法雙向溝通
   beforeMount() {
-    console.log(this.$el);
     let titleText = this.$el.querySelector("#title");
     titleText.classList.add("redTest");
     console.log("beforeMount：vue的元素已經建立完畢，尚未顯示在網頁上");
@@ -106,7 +102,6 @@ export default {
       "mounted：vue的元素已經與網頁的元素形成羈絆，達到資料雙向的效果"
     );
     let titleText = this.$el.querySelector("#title").innerText;
-    console.log("mount", titleText);
   },
   //
   beforeUpdate() {
@@ -124,16 +119,6 @@ export default {
   destroyed() {
     console.log("destroyed：Vue實體已經被完全銷毀。");
   },
-  computed: {
-    displayedUsers() { // 顯示當前頁數該顯示的資料
-      const startIndex = this.currentPage * this.itemsPerPage;
-      const endIndex = startIndex + this.itemsPerPage;
-      return this.userList.slice(startIndex, endIndex);
-    },
-    totalPages() {
-      return Math.ceil(this.userList.length / this.itemsPerPage);
-    },
-  },
   //可以放置其他函式的地方
   methods: {
     updateNick() {  //變更暱稱
@@ -141,16 +126,6 @@ export default {
     },
     changePass() {  //變更密碼
       this.password = this.changePassword;
-    },
-    nextPage() { // 下一頁
-      if (this.currentPage < this.totalPages - 1) {
-        this.currentPage++;
-      }
-    },
-    prevPage() {
-      if (this.currentPage > 0) {
-        this.currentPage--;
-      }
     },
     toggleVisibility() {
       this.isVisible = !this.isVisible;
