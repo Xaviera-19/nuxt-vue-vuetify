@@ -8,13 +8,12 @@
   display: flex;
   gap: 10px;
   justify-content: space-between;
-  background-color: white;
+  /* background-color: white; */
   margin: 20px 0;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow: hidden;
 }
-#animals v-card {
-  width: 20%;
+#animals .card {
+  max-width: 260px;
 }
 #animals .img-box {
   width: 260px;
@@ -61,9 +60,14 @@
     </div>
     <hr />
     <!-- FOREACH -->
-    <h2>阿貓阿狗們</h2>
+    <h2>待領養動物們</h2>
     <div id="animals">
-      <v-card v-for="item in currentPageData" :key="item.aniaml_id" elevation="7">
+      <v-card
+        v-for="item in currentPageData"
+        :key="item.aniaml_id"
+        elevation="7"
+        class="card"
+      >
         <v-row>
           <v-card-title>
             <cat v-if="item.animal_kind === '貓'" />
@@ -140,9 +144,7 @@ export default {
     },
     //當前頁數
     currentPageData() {
-      return this.sixDatas.length > 0
-        ? this.sixDatas
-        : this.filteredData;
+      return this.sixDatas.length > 0 ? this.sixDatas : this.filteredData;
     },
   },
   //適合執行指令的函式 - 不會留存結果 直接執行完

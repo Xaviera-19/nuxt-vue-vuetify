@@ -22,11 +22,6 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <nuxt-link v-for="item  in items" :to="item.to" exact>
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </nuxt-link>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
@@ -87,13 +82,19 @@ export default {
           to: "/inspire",
         },
         {
-          icon: "mdi-chart-bubble",
-          title: "LifeCycle",
+          icon: "mdi-heart-cog",
+          title: "生命週期",
           to: "/life",
         },
         {
-          icon: "mdi-chart-bubble",
-          title: "Basic",
+          icon: "mdi-head-cog-outline",
+          title: "0.0",
+          to: "/practice",
+        },
+
+        {
+          icon: "mdi-paw",
+          title: "綜合作業",
           to: "/basic",
         },
       ],
