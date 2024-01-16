@@ -3,6 +3,12 @@
   font-size: 20px;
   font-weight: bolder;
 }
+select {
+  width: 170px;
+  color: aliceblue;
+  background-color: black;
+  text-align: center;
+}
 #animals {
   width: 100%;
   display: flex;
@@ -13,6 +19,7 @@
 }
 #animals .card {
   max-width: 260px;
+  height: 730px;
 }
 #animals .img-box {
   width: 260px;
@@ -47,37 +54,36 @@
 </style>
 <template>
   <div>
+    
     <h1 class="big-title">Vue Basic</h1>
     <hr />
     <!-- 用來搜尋 -->
-    <h2>搜尋區域QQ</h2>
+    <h2>想要阿貓還是阿狗/公母任選/地區任選</h2>
     <div>
-      <div>我要找{{ type }}，性別{{ sex }}，在{{ cities }}。</div>
+      <select v-model="type">
+        <option value="">傻子才選我全都要</option>
+        <option value="狗">選阿狗</option>
+        <option value="貓">挑阿貓</option>
+      </select>
       <input type="radio" v-model="sex" value="M" id="" />
       <span>公</span>
       <input type="radio" v-model="sex" value="F" id="" />
       <span>母</span>
-      <select v-model="type">
-        <option value="">全部</option>
-        <option value="狗">狗</option>
-        <option value="貓">貓</option>
-      </select>
       <input type="checkbox" v-model="cities" value="新竹" id="" />
       <span>新竹</span>
       <input type="checkbox" v-model="cities" value="高雄" id="" />
       <span>高雄</span>
       <input type="checkbox" v-model="cities" value="彰化" id="" />
       <span>彰化</span>
-      <input
-        type="text"
-        v-model="keywords"
-        name=""
-        placeholder="請輸入關鍵字"
-      />
     </div>
     <hr />
     <!-- FOREACH -->
-    <h2>待領養動物們</h2>
+    <h2>等待家的毛孩們</h2>
+    <!-- <v-row> -->
+      <button @click="prevPage">上一頁</button>
+      <span>❮{{ currentPage + 1 }} / {{ totalPages }}❯</span>
+      <button @click="nextPage">下一頁</button>
+    <!-- </v-row> -->
     <div id="animals">
       <v-card
         v-for="item in currentPageData"
@@ -98,13 +104,21 @@
           </v-card-title>
         </v-row>
         <v-card-subtitle>
-          <v-row>
-            <p>年齡：{{ item.animal_age }}</p>
-            <p>顏色：黃色</p>
-          </v-row>
+          <v-col>
+            <p>
+              年齡：
+              <span v-if="item.animal_age === 'ADULT'">我是大朋友</span>
+              <span v-else>我是小屁孩</span>
+            </p>
+            <p>顏色：{{ item.animal_colour }}</p>
+          </v-col>
         </v-card-subtitle>
         <div class="img-box">
-          <img @click="getSrc(item.album_file)" :src="item.album_file" alt="尚無動物圖片" />
+          <img
+            @click="getSrc(item.album_file)"
+            :src="item.album_file"
+            alt="尚無動物圖片"
+          />
         </div>
         <v-card-text>
           <p>拾獲地點：{{ item.animal_foundplace }}</p>
@@ -115,11 +129,14 @@
         </v-card-text>
       </v-card>
     </div>
-    <button @click="prevPage">上一頁</button>
-    <span>❮{{ currentPage + 1 }} / {{ totalPages }}❯</span>
-    <button @click="nextPage">下一頁</button>
+
     <div :class="{ isDisplay }" class="overlay">
-      <img @click.self="togglePic" class="animalPicture" :src="animalPic" alt="動物全圖">
+      <img
+        @click.self="togglePic"
+        class="animalPicture"
+        :src="animalPic"
+        alt="動物全圖"
+      />
     </div>
   </div>
 </template>
@@ -133,12 +150,11 @@ export default {
       type: "", //貓?狗?
       sex: "", //公?母?
       cities: [], //篩選縣市
-      keywords: "", //關鍵字搜尋
 
       itemsPerPage: 6, // 每頁顯示6筆
       currentPage: 0, // 當前頁數
       isDisplay: true,
-      animalPic: '',
+      animalPic: "",
     };
   },
   //適合計算函式 - 會緩存結果
@@ -184,7 +200,7 @@ export default {
       }
     },
     getSrc(item) {
-      this.animalPic = '';
+      this.animalPic = "";
       console.log(item);
       this.animalPic = item;
       this.isDisplay = !this.isDisplay;

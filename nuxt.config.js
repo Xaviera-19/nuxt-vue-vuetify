@@ -25,6 +25,7 @@ export default {
   //放插件的地方
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/Marquee.js',
   ],
   //自動引入組件
   // Auto import components: https://go.nuxtjs.dev/config-components

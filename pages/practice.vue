@@ -11,11 +11,11 @@ hr {
 #v-model input {
   background-color: aliceblue;
   color: black;
-  width: 100px;
+  width: 180px;
 }
 #v-model .result {
   display: inline-block;
-  width: 150px;
+  width: 260px;
   background-color: bisque;
   color: black;
 }
@@ -68,7 +68,13 @@ hr {
       <div class="v-model">
         <input v-model.lazy="modelFour" type="text" />
         <span class="result">lazy■{{ modelFour }}</span>
+        <span v-once class="result">v-once■{{ modelFour }}</span>
       </div>
+      <input v-model="theSame" type="text" />
+
+      <span v-text="theSame" class="result"></span>
+      <span v-html="theSame" class="result"></span>
+      <span class="result">{{ theSame }}</span>
     </section>
     <!-- v-on -->
     <section id="v-on">
@@ -99,6 +105,7 @@ hr {
       </ul>
       <v-btn @click.once="alertOne">只能按一次 嗚嗚</v-btn>
     </section>
+
   </div>
 </template>
 
@@ -107,10 +114,11 @@ export default {
   data() {
     return {
       // model
-      modelOne: "",
+      modelOne: "差在哪",
       modelTwo: "",
       modelThr: "",
-      modelFour: "",
+      modelFour: "可撥的我被綁架在畫面上",
+      theSame: "<h2>一樣的內容容</h2>",
       // on
       isDisplay: true,
       content: ["公告1111", "公告2222", "公告3333"],
@@ -129,13 +137,20 @@ export default {
     handleItemClick(event) {
       this.clickContent = "";
       // 在捕獲階段處理事件
-      console.log(event);
+      console.log(event.target.innerText);
       this.clickContent = event.target.innerText;
       this.isDisplay = !this.isDisplay;
     },
     alertOne() {
-      console.log("只會觸發一次");
+      console.log("只會觸發一次 @click.once");
     },
+  },
+  watch: {
+    modelFour(newWord ,oldWord){
+      console.log(`modelFour 變化，新值：${newWord}，舊值：${oldWord}`);
+      // 可以寫變更密碼/MAIL的地方 寫判斷是否更新成功然後給使用者回饋
+      window.alert(`${oldWord}將更新為${newWord}`)
+    }
   },
 };
 </script>
