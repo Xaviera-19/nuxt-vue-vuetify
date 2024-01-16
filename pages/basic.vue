@@ -11,11 +11,17 @@ select {
 }
 #animals {
   width: 100%;
+  height: 750px;
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin: 20px 0;
-  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+#animals::-webkit-scrollbar {
+  display: none;
 }
 #animals .card {
   max-width: 260px;
@@ -54,8 +60,7 @@ select {
 </style>
 <template>
   <div>
-    
-    <h1 class="big-title">Vue Basic</h1>
+    <slot name="pageTitle">{{ footerTitle }}</slot>
     <hr />
     <!-- 用來搜尋 -->
     <h2>想要阿貓還是阿狗/公母任選/地區任選</h2>
@@ -80,11 +85,22 @@ select {
     <!-- FOREACH -->
     <h2>等待家的毛孩們</h2>
     <!-- <v-row> -->
-      <button @click="prevPage">上一頁</button>
-      <span>❮{{ currentPage + 1 }} / {{ totalPages }}❯</span>
-      <button @click="nextPage">下一頁</button>
-    <!-- </v-row> -->
-    <div id="animals">
+    <button @click="prevPage">上一頁</button>
+    <span>❮{{ currentPage + 1 }} / {{ totalPages }}❯</span>
+    <button @click="nextPage">下一頁</button>{{ itemsPerPage }}
+    <select v-model="itemsPerPage">
+      <option value="6">每頁6筆</option>
+      <option value="12">每頁12筆</option>
+      <option value="18">每頁18筆</option>
+    </select>
+    <!-- </v-row> animalDatas-->
+    <div id="animals" @scroll="handleScroll">
+      <!-- <v-card
+        v-for="item in animalDatas"
+        :key="item.aniaml_id"
+        elevation="7"
+        class="card"
+      > -->
       <v-card
         v-for="item in currentPageData"
         :key="item.aniaml_id"
@@ -145,6 +161,7 @@ export default {
   //資料放置區
   data() {
     return {
+      footerTitle: "Vue Basic",
       animalDatas: [],
 
       type: "", //貓?狗?
@@ -208,6 +225,11 @@ export default {
     togglePic() {
       this.isDisplay = !this.isDisplay;
       console.log(123);
+    },
+    handleScroll(event) {
+      // 在這裡處理滾動事件
+      console.log("滾動事件", event);
+      console.log(event.preventDefault());
     },
   },
   //還不知道

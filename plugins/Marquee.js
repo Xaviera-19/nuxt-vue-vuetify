@@ -2,7 +2,7 @@
 export const marqueeMixin = {
   data() {
     return {
-      messages: ["Message 1", "Message 2", "Message 3"],
+      messages: ["跑馬燈咦咦咦咦咦咦", "跑馬燈餓餓餓餓餓餓餓餓", "跑馬燈姍姍姍姍姍姍姍姍"],
       currentMessageIndex: 0,
       intervalId: null,
     };
@@ -16,7 +16,7 @@ export const marqueeMixin = {
     startMarquee() {
       this.intervalId = setInterval(() => {
         this.currentMessageIndex = (this.currentMessageIndex + 1) % this.messages.length;
-      }, 2000);
+      }, 3000);
     },
     stopMarquee() {
       clearInterval(this.intervalId);
