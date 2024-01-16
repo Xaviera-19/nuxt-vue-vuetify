@@ -8,7 +8,6 @@
   display: flex;
   gap: 10px;
   justify-content: space-between;
-  /* background-color: white; */
   margin: 20px 0;
   overflow: hidden;
 }
@@ -26,6 +25,24 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.isDisplay {
+  display: none;
+}
+.animalPicture {
+  display: block;
+  height: 100%;
 }
 </style>
 <template>
@@ -87,7 +104,7 @@
           </v-row>
         </v-card-subtitle>
         <div class="img-box">
-          <img :src="item.album_file" alt="尚無動物圖片" />
+          <img @click="getSrc(item.album_file)" :src="item.album_file" alt="尚無動物圖片" />
         </div>
         <v-card-text>
           <p>拾獲地點：{{ item.animal_foundplace }}</p>
@@ -101,6 +118,9 @@
     <button @click="prevPage">上一頁</button>
     <span>❮{{ currentPage + 1 }} / {{ totalPages }}❯</span>
     <button @click="nextPage">下一頁</button>
+    <div :class="{ isDisplay }" class="overlay">
+      <img @click.self="togglePic" class="animalPicture" :src="animalPic" alt="動物全圖">
+    </div>
   </div>
 </template>
 <script>
@@ -117,6 +137,8 @@ export default {
 
       itemsPerPage: 6, // 每頁顯示6筆
       currentPage: 0, // 當前頁數
+      isDisplay: true,
+      animalPic: '',
     };
   },
   //適合計算函式 - 會緩存結果
@@ -160,9 +182,16 @@ export default {
       if (this.currentPage > 0) {
         this.currentPage--;
       }
-      // if(this.currentPage === 0) {
-      //   this.currentPage = this.totalPages;
-      // }
+    },
+    getSrc(item) {
+      this.animalPic = '';
+      console.log(item);
+      this.animalPic = item;
+      this.isDisplay = !this.isDisplay;
+    },
+    togglePic() {
+      this.isDisplay = !this.isDisplay;
+      console.log(123);
     },
   },
   //還不知道
