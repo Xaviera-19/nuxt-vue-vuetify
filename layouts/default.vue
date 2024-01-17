@@ -42,6 +42,7 @@
     </v-app-bar>
     <v-main>
       <v-container>
+        <!-- <slot name="test"></slot> -->
         <Nuxt />
       </v-container>
     </v-main>
