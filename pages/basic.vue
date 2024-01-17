@@ -68,14 +68,15 @@ select {
     <!-- 用來搜尋 -->
     <h2>想要阿貓還是阿狗/公母任選/地區任選</h2>
     <div>
+    <!-- <div v-pre> -->
       <select v-model="type">
         <option value="">傻子才選我全都要</option>
         <option value="狗">選阿狗</option>
         <option value="貓">挑阿貓</option>
       </select>
-      <input type="radio" v-model="sex" value="M" id="" />
+      <input type="radio" v-model="sex" value="M" name="sex" />
       <span>公</span>
-      <input type="radio" v-model="sex" value="F" id="" />
+      <input type="radio" v-model="sex" value="F" name="sex" />
       <span>母</span>
       <input type="checkbox" v-model="cities" value="新竹" id="" />
       <span>新竹</span>
