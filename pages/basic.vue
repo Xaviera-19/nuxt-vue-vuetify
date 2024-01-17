@@ -60,7 +60,6 @@ select {
 </style>
 <template>
   <div>
-    <slot name="pageTitle">{{ footerTitle }}</slot>
     <hr />
     <!-- 用來搜尋 -->
     <h2>想要阿貓還是阿狗/公母任選/地區任選</h2>
@@ -95,12 +94,14 @@ select {
     </select>
     <!-- </v-row> animalDatas-->
     <div id="animals" @scroll="handleScroll">
+      <!-- 全部 -->
       <!-- <v-card
         v-for="item in animalDatas"
         :key="item.aniaml_id"
         elevation="7"
         class="card"
       > -->
+      <!-- 篩選過的 -->
       <v-card
         v-for="item in currentPageData"
         :key="item.aniaml_id"
@@ -161,7 +162,7 @@ export default {
   //資料放置區
   data() {
     return {
-      footerTitle: "Vue Basic",
+      footerText: "綜合作業",
       animalDatas: [],
 
       type: "", //貓?狗?

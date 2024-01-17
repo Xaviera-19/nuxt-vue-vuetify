@@ -57,24 +57,17 @@
     </v-navigation-drawer> -->
     <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
-      <!-- <BasicPage>
-      </BasicPage> -->
-      <!-- <template v-slot:pageTitle>
-        <h1>{{ footerTitle }}</h1>
-      </template> -->
+      <slot name="footer"></slot>
     </v-footer>
   </v-app>
 </template>
 
 <script>
 import { marqueeMixin } from "~/plugins/Marquee";
-import BasicPage from "~/pages/basic.vue";
+
 
 export default {
   mixins: [marqueeMixin],
-  components: {
-    BasicPage,
-  },
   name: "DefaultLayout",
   data() {
     return {
