@@ -60,10 +60,7 @@ select {
 </style>
 <template>
   <div>
-    <slotTest>
-      <template v-slot:slotOne></template>
-      <template v-slot:slotTwo></template>
-    </slotTest>
+
     <hr />
     <!-- 用來搜尋 -->
     <h2>想要阿貓還是阿狗/公母任選/地區任選</h2>
@@ -163,11 +160,8 @@ select {
   </div>
 </template>
 <script>
-import slotTest from "~/components/slotTest.vue";
 export default {
-  components: {
-    slotTest,
-  },
+
   //資料放置區
   data() {
     return {
@@ -209,6 +203,7 @@ export default {
     },
     //當前頁數
     currentPageData() {
+      console.log(123);
       return this.sixDatas.length > 0 ? this.sixDatas : this.filteredData;
     },
   },

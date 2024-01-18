@@ -105,12 +105,12 @@ hr {
       </ul>
       <v-btn @click.once="alertOne">只能按一次 嗚嗚</v-btn>
     </section>
-
   </div>
 </template>
 
 <script>
 export default {
+
   data() {
     return {
       // model

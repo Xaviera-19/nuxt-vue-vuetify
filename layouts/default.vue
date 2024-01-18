@@ -30,10 +30,8 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
       </v-btn>
-      <div class="marquee-container">
-        <div class="marquee">
-          {{ currentMessage }}
-        </div>
+      <div>
+        {{ currentMessage }}
       </div>
       <v-spacer />
       <!-- <v-btn icon @click.stop="rightDrawer = !rightDrawer">
@@ -65,7 +63,6 @@
 
 <script>
 import { marqueeMixin } from "~/plugins/Marquee";
-
 
 export default {
   mixins: [marqueeMixin],
