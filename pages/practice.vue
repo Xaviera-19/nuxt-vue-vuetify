@@ -74,7 +74,6 @@ hr {
 
       <span v-text="theSame" class="result"></span>
       <span v-html="theSame" class="result"></span>
-      <span class="result">{{ theSame }}</span>
     </section>
     <!-- v-on -->
     <section id="v-on">

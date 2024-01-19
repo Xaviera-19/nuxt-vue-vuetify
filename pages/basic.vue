@@ -60,12 +60,13 @@ select {
 </style>
 <template>
   <div>
-
     <hr />
     <!-- 用來搜尋 -->
     <h2>想要阿貓還是阿狗/公母任選/地區任選</h2>
+    <p>找{{ type }}，性別{{ sex }}</p>
+    <p v-text="'我要找' + type + '性別' + sex"></p>
     <div>
-    <!-- <div v-pre> -->
+      <!-- <div v-pre> -->
       <select v-model="type">
         <option value="">傻子才選我全都要</option>
         <option value="狗">選阿狗</option>
@@ -161,7 +162,6 @@ select {
 </template>
 <script>
 export default {
-
   //資料放置區
   data() {
     return {
@@ -236,6 +236,7 @@ export default {
       console.log("滾動事件", event);
       console.log(event.preventDefault());
     },
+    
   },
   //還不知道
   // watch

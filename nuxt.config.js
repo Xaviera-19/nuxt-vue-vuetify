@@ -26,6 +26,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/Marquee.js',
+    '~/plugins/eventBus.js',
   ],
   //自動引入組件
   // Auto import components: https://go.nuxtjs.dev/config-components
