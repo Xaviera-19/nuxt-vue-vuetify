@@ -30,13 +30,15 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
       </v-btn>
-      <div>
-        {{ currentMessage }}
-      </div>
+      <v-row class="justify-center">
+        <div>{{ mixinMsg }}</div>
+      </v-row>
       <v-spacer />
-      <!-- <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn> -->
+      <!-- 弄個像登入的東西 -->
+      <v-row class="justify-end">
+        <p v-if="$store.state.data !== null">User Name: {{ $store.state.data?.results[0]?.name?.first }}</p>
+        <v-btn @click="fetchUserData">OAO</v-btn>
+      </v-row>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -44,6 +46,7 @@
         <Nuxt />
       </v-container>
     </v-main>
+
     <!-- <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
         <v-list-item @click.native="right = !right">
@@ -62,10 +65,10 @@
 </template>
 
 <script>
-import { marqueeMixin } from "~/plugins/Marquee";
+import { myMixin } from "~/plugins/myMixin";
 
 export default {
-  mixins: [marqueeMixin],
+  mixins: [myMixin],
   name: "DefaultLayout",
   data() {
     return {
@@ -105,6 +108,17 @@ export default {
       rightDrawer: false,
       title: "Vuetify.js",
     };
+  },
+  methods: {
+    async fetchUserData() {
+      // 調用 actions 中的 userData 方法
+      await this.$store.dispatch("userData");
+
+      console.log(
+        "User Name:",
+        this.$store.state.data?.results[0]?.name?.first
+      );
+    },
   },
 };
 </script>

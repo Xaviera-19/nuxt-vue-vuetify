@@ -7,12 +7,13 @@
     </slotTest>
     <propsTest :msg="propText"></propsTest>
     <emitTest ref="myRef" @emitFun="handleEmit"></emitTest>
+    <v-btn @click="onClick">ref</v-btn>
     <propsTest :msg="propText2"></propsTest>
     <v-btn @click="changeNum">touch</v-btn>
     <comA></comA>
     <comB></comB>
-    <!-- <p>{{ num }}</p>
-    <p>{{add}}</p> -->
+    <p>{{ $store.state.numCount }}</p>
+    <v-btn @click="changeNum">這是STORE</v-btn>
   </div>
 </template>
 <script>
@@ -44,6 +45,13 @@ export default {
     },
     changeNum() {
       this.num = 0;
+    },
+    onClick() {
+      this.$refs.myRef.refMsg();
+    },
+    //store內的mutation
+    changeNum() {
+      this.$store.commit('changeNum');
     },
   },
   computed: {

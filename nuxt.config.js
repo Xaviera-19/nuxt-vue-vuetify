@@ -25,7 +25,7 @@ export default {
   //放插件的地方
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/Marquee.js',
+    '~/plugins/myMixin.js',
     '~/plugins/eventBus.js',
   ],
   //自動引入組件

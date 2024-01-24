@@ -238,9 +238,6 @@ export default {
     },
     
   },
-  //還不知道
-  // watch
-  // mixin
   created() {
     fetch(
       "https://data.moa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL"

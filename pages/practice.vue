@@ -8,7 +8,8 @@ hr {
 .v-model {
   margin-bottom: 10px;
 }
-#v-model input {
+#v-model input,
+.watchDeep input {
   background-color: aliceblue;
   color: black;
   width: 180px;
@@ -104,12 +105,22 @@ hr {
       </ul>
       <v-btn @click.once="alertOne">只能按一次 嗚嗚</v-btn>
     </section>
+    <h2>{{ msg }}</h2>
+    <div class="watchDeep">
+      <p>動物名-watch deep</p>
+      <input v-model="animalData.animalName" type="text" />
+      <p>居住地 / 晶片</p>
+      <input v-model="animalData.address.city" type="text" />
+      <input v-model="animalData.address.id" type="text" />
+    </div>
   </div>
 </template>
 
 <script>
-export default {
+import { myMixin } from "~/plugins/myMixin";
 
+export default {
+  mixins: [myMixin],
   data() {
     return {
       // model
@@ -122,6 +133,16 @@ export default {
       isDisplay: true,
       content: ["公告1111", "公告2222", "公告3333"],
       clickContent: "",
+      // 若跟MIXIN撞名會吃到誰的效果呢qq
+      msg: "這是/practice的msg",
+      // 玩deep
+      animalData: {
+        animalName: "賴阿跳",
+        address: {
+          city: "台中",
+          id: "73001-00000-00000",
+        },
+      },
     };
   },
   methods: {
@@ -145,11 +166,25 @@ export default {
     },
   },
   watch: {
-    modelFour(newWord ,oldWord){
+    modelFour(newWord, oldWord) {
       console.log(`modelFour 變化，新值：${newWord}，舊值：${oldWord}`);
       // 可以寫變更密碼/MAIL的地方 寫判斷是否更新成功然後給使用者回饋
-      window.alert(`${oldWord}將更新為${newWord}`)
-    }
+      window.alert(`${oldWord}將更新為${newWord}`);
+    },
+    // watch deep
+    animalData: {
+      handler(newValue, oldValue) {
+        console.log("深層watch 舊", oldValue);
+        console.log("深層watch 新", newValue);
+      },
+      deep: true, // 看陣列或物件 有變化會整個陣列或物件傳出來
+      immediate: true,  //原本要值變了才會執行 下這個會變成初始化完先執行一次
+    },
+    'animalData.animalName': function(newValue, oldValue) {
+      this.msg = newValue;
+      console.log("普通watch 舊", oldValue);
+      console.log("普通watch 新", newValue);
+    },
   },
 };
 </script>
