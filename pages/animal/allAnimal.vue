@@ -1,3 +1,4 @@
+<!-- pages/animal/allAnimal.vue -->
 <style>
 .big-title {
   font-size: 20px;
@@ -147,6 +148,9 @@ select {
           <p>單位地址：{{ item.shelter_address }}</p>
           <p>單位電話：{{ item.shelter_tel }}</p>
         </v-card-text>
+        <v-row class="justify-center">
+          <v-btn @click="showDetail(item)">詳細資料</v-btn>
+        </v-row>
       </v-card>
     </div>
 
@@ -236,7 +240,11 @@ export default {
       console.log("滾動事件", event);
       console.log(event.preventDefault());
     },
-    
+    showDetail(animal) {
+    // 在這裡處理顯示詳細資料的邏輯
+    // 例如，導航到別的畫面，並將動物物件作為參數傳遞
+    this.$router.push({ name: 'animal-detail', params: { animal } });
+  },
   },
   created() {
     fetch(

@@ -14,6 +14,7 @@
     <comB></comB>
     <p>{{ $store.state.numCount }}</p>
     <v-btn @click="changeNum">這是STORE</v-btn>
+    <v-btn @click="goToHome">點擊回WELCOME</v-btn>
   </div>
 </template>
 <script>
@@ -51,7 +52,13 @@ export default {
     },
     //store內的mutation
     changeNum() {
-      this.$store.commit('changeNum');
+      this.$store.commit("changeNum");
+    },
+    // 編程式
+    goToHome() {
+      // this.$router.push("/");
+      this.$router.push({ path: '/', query: { plan: 'private' } });
+      // this.$router.push({  path: '/practice', hash: '#team'  });
     },
   },
   computed: {
