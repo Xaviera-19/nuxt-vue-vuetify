@@ -12,7 +12,7 @@ select {
 }
 #animals {
   width: 100%;
-  height: 750px;
+  height: 710px;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
@@ -91,7 +91,7 @@ select {
     <button @click="prevPage">上一頁</button>
     <span>❮{{ currentPage + 1 }} / {{ totalPages }}❯</span>
     <button @click="nextPage">下一頁</button>{{ itemsPerPage }}
-    <select v-model="itemsPerPage">
+    <select v-model.number="itemsPerPage">
       <option value="6">每頁6筆</option>
       <option value="12">每頁12筆</option>
       <option value="18">每頁18筆</option>
@@ -182,6 +182,12 @@ export default {
       animalPic: "",
     };
   },
+  watch:{
+    itemsPerPage(oldPage,newPage ){
+      console.log(oldPage,newPage);
+    }
+  },
+
   //適合計算函式 - 會緩存結果
   computed: {
     filteredData() {
@@ -207,7 +213,6 @@ export default {
     },
     //當前頁數
     currentPageData() {
-      console.log(123);
       return this.sixDatas.length > 0 ? this.sixDatas : this.filteredData;
     },
   },
@@ -233,18 +238,13 @@ export default {
     },
     togglePic() {
       this.isDisplay = !this.isDisplay;
-      console.log(123);
     },
     handleScroll(event) {
       // 在這裡處理滾動事件
       console.log("滾動事件", event);
       console.log(event.preventDefault());
     },
-    showDetail(animal) {
-    // 在這裡處理顯示詳細資料的邏輯
-    // 例如，導航到別的畫面，並將動物物件作為參數傳遞
-    this.$router.push({ name: 'animal-detail', params: { animal } });
-  },
+ 
   },
   created() {
     fetch(
