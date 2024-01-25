@@ -94,14 +94,18 @@ export default {
         },
         {
           icon: "mdi-head-cog-outline",
-          title: "0.0",
+          title: "v-ouo",
           to: "/practice",
         },
-
         {
           icon: "mdi-paw",
           title: "綜合作業",
-          to: "/basic",
+          to: "/animal/allAnimal",
+        },
+        {
+          icon: "mdi-paw",
+          title: "父子組件",
+          to: "/component",
         },
       ],
       miniVariant: false,

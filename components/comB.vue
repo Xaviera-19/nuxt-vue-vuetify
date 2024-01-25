@@ -1,4 +1,4 @@
-<!-- ComponentB.vue -->
+<!-- components/comB.vue -->
 <template>
   <div>
     <p>{{ message }}</p>

@@ -1,9 +1,9 @@
+<!-- components/props.vue -->
 <template>
   <div>
-    <slot name="propsOne">
+    <slot>
       <v-btn>{{ msg }}</v-btn>
     </slot>
-    <slot name="propsTwo">QQQQ</slot>
   </div>
 </template>
 

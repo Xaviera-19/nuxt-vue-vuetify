@@ -1,6 +1,8 @@
+<!-- components/emit.vue -->
 <template>
   <div>
     <v-btn @click="sendMsg">EMIT送給霸霸</v-btn>
+
   </div>
 </template>
 
@@ -17,7 +19,7 @@ export default{
       this.$emit('emitFun',this.data);
     },
     refMsg(){
-      console.log('大大找到我惹!');
+      console.log('從子組鍵傳給父祖件');
     },
   }
 }

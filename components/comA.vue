@@ -1,3 +1,4 @@
+<!-- components/comA.vue -->
 <template>
   <div>
     <v-btn @click="publishEvent">eventBus</v-btn>

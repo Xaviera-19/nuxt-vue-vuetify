@@ -109,6 +109,7 @@ hr {
     <div class="watchDeep">
       <p>動物名-watch deep</p>
       <input v-model="animalData.animalName" type="text" />
+      <v-btn @click="changeAnimalName">改名用</v-btn>
       <p>居住地 / 晶片</p>
       <input v-model="animalData.address.city" type="text" />
       <input v-model="animalData.address.id" type="text" />
@@ -163,6 +164,9 @@ export default {
     },
     alertOne() {
       console.log("只會觸發一次 @click.once");
+    },
+    changeAnimalName(){
+      this.animalData.animalName = '小屁貓'
     },
   },
   watch: {

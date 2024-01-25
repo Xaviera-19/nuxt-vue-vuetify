@@ -26,7 +26,7 @@ select {
 }
 #animals .card {
   max-width: 260px;
-  height: 730px;
+  height: 760px;
 }
 #animals .img-box {
   width: 260px;
@@ -96,20 +96,11 @@ select {
       <option value="12">每頁12筆</option>
       <option value="18">每頁18筆</option>
     </select>
-    <!-- </v-row> animalDatas-->
     <div id="animals" @scroll="handleScroll">
-      <!-- 全部 -->
-      <!-- <v-card
-        v-for="item in animalDatas"
-        :key="item.aniaml_id"
-        elevation="7"
-        class="card"
-      > -->
-      <!-- 篩選過的 -->
       <v-card
         v-for="item in currentPageData"
         :key="item.aniaml_id"
-        elevation="7"
+        elevation="8"
         class="card"
       >
         <v-row>
@@ -149,7 +140,7 @@ select {
           <p>單位電話：{{ item.shelter_tel }}</p>
         </v-card-text>
         <v-row class="justify-center">
-          <v-btn @click="showDetail(item)">詳細資料</v-btn>
+          <v-btn @click="showDetail(item, item.animal_id)">詳細資料</v-btn>
         </v-row>
       </v-card>
     </div>
@@ -182,10 +173,10 @@ export default {
       animalPic: "",
     };
   },
-  watch:{
-    itemsPerPage(oldPage,newPage ){
-      console.log(oldPage,newPage);
-    }
+  watch: {
+    itemsPerPage(oldPage, newPage) {
+      console.log(oldPage, newPage);
+    },
   },
 
   //適合計算函式 - 會緩存結果
@@ -244,7 +235,10 @@ export default {
       console.log("滾動事件", event);
       console.log(event.preventDefault());
     },
- 
+    showDetail(item, id) {
+      this.$store.commit("setItemDetail", item);
+      this.$router.push({ name: "animal-detail", params: { id: id } });
+    },
   },
   created() {
     fetch(

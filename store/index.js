@@ -1,6 +1,8 @@
+// store/index.js
 export const state = () => ({
   numCount: 0,
   data: null, // 新增 data 狀態
+  animalDetail: null,// 要塞單筆的動物資料
 });
 
 export const mutations = { //必须是同步函数
@@ -10,6 +12,9 @@ export const mutations = { //必须是同步函数
   },
   setData(state, data) {
     state.data = data;
+  },
+  setItemDetail(state, item) {
+    state.animalDetail = item;
   },
 };
 

@@ -1,24 +1,51 @@
+<style>
+hr {
+  margin: 15px 0 5px;
+}
+</style>
 <template>
   <div>
     <slotTest>
       <template v-slot:slotOne>
-        <v-btn>Custom Button</v-btn>
+        <v-btn>這是具名插槽</v-btn>
       </template>
     </slotTest>
+
+    <hr />
+    <p>不具名插槽 props傳 父傳子</p>
     <propsTest :msg="propText"></propsTest>
-    <emitTest ref="myRef" @emitFun="handleEmit"></emitTest>
-    <v-btn @click="onClick">ref</v-btn>
     <propsTest :msg="propText2"></propsTest>
-    <v-btn @click="changeNum">touch</v-btn>
+
+    <hr />
+    <p>不具名插槽 emit傳 子傳父</p>
+    <emitTest ref="myRef" @emitFun="handleEmit"></emitTest>
+
+    <hr />
+    <p>作用域</p>
+    <scopedSlot  :items="fakeData">
+      <template v-slot="{ item }">
+        <span>{{ item.name }}</span>
+      </template>
+    </scopedSlot>
+
+    <hr />
     <comA></comA>
     <comB></comB>
+
+    <hr />
     <p>{{ $store.state.numCount }}</p>
-    <v-btn @click="changeNum">這是STORE</v-btn>
+    <v-btn @click="changeNum">這是STORE數字++</v-btn>
+
+    <hr />
     <v-btn @click="goToHome">點擊回WELCOME</v-btn>
+
+    <hr />
+    <button @keydown.enter="enterKey">按鍵按下.僅限ENTER</button>
   </div>
 </template>
 <script>
 import slotTest from "~/components/slotTest.vue";
+import scopedSlot from "~/components/scopedSlot.vue";
 import propsTest from "~/components/props.vue";
 import emitTest from "~/components/emit.vue";
 import comA from "~/components/comA.vue";
@@ -30,13 +57,19 @@ export default {
     emitTest,
     comA,
     comB,
+    scopedSlot,
   },
   data() {
     return {
       // 眉目傳情
-      propText: "prop傳傳傳傳",
-      propText2: "prop = =",
+      propText: "第一個PROP傳",
+      propText2: "第二個PROP傳",
       num: 1,
+      fakeData: [
+        { id: 1, name: 'John作用域' },
+        { id: 2, name: 'Jane作用域' },
+        { id: 3, name: 'Doe作用域' }
+      ]
     };
   },
   methods: {
@@ -54,11 +87,14 @@ export default {
     changeNum() {
       this.$store.commit("changeNum");
     },
-    // 編程式
+    // 編程式路由
     goToHome() {
-      // this.$router.push("/");
-      this.$router.push({ path: '/', query: { plan: 'private' } });
+      this.$router.push("/");
+      // this.$router.push({ path: "/", query: { plan: "private" } });
       // this.$router.push({  path: '/practice', hash: '#team'  });
+    },
+    enterKey() {
+      console.log("enter按下去了!");
     },
   },
   computed: {
