@@ -87,7 +87,7 @@ hr {
           <p>{{ clickContent }}</p>
         </div>
         <div @click.stop class="popup">
-          <v-icon @click="togglePopup" color="black">mdi-toggle</v-icon>
+          <v-icon @click="togglePopup" color="black">mdi-window-close</v-icon>
           這是按了不會關閉的公告
           <p>{{ clickContent }}</p>
         </div>
@@ -125,11 +125,11 @@ export default {
   data() {
     return {
       // model
-      modelOne: "差在哪",
-      modelTwo: "",
-      modelThr: "",
-      modelFour: "可撥的我被綁架在畫面上",
-      theSame: "<h2>一樣的內容容</h2>",
+      modelOne: "什麼都沒有的v-model",
+      modelTwo: "排除前後空白",
+      modelThr: "這邊看不出來看分頁那邊",
+      modelFour: "渲染一次被綁架在畫面上",
+      theSame: "<h2>大字html小字text</h2>",
       // on
       isDisplay: true,
       content: ["公告1111", "公告2222", "公告3333"],
@@ -163,7 +163,7 @@ export default {
       this.isDisplay = !this.isDisplay;
     },
     alertOne() {
-      console.log("只會觸發一次 @click.once");
+      window.alert("只會觸發一次 @click.once");
     },
     changeAnimalName(){
       this.animalData.animalName = '小屁貓'

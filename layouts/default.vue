@@ -103,7 +103,7 @@ export default {
           to: "/animal/allAnimal",
         },
         {
-          icon: "mdi-paw",
+          icon: "mdi-bat",
           title: "父子組件",
           to: "/component",
         },

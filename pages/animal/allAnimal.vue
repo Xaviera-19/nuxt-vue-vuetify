@@ -12,12 +12,12 @@ select {
 }
 #animals {
   width: 100%;
-  height: 710px;
+  height: 792px;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 20px 0;
+  margin: 20px 0 0;
   overflow-y: scroll;
   overflow-x: hidden;
 }
@@ -26,7 +26,7 @@ select {
 }
 #animals .card {
   max-width: 260px;
-  height: 760px;
+  height: 620px;
 }
 #animals .img-box {
   width: 260px;
@@ -58,14 +58,14 @@ select {
   display: block;
   height: 100%;
 }
+.v-application p {
+    margin-bottom: 0px !important;
+}
 </style>
 <template>
   <div>
-    <hr />
     <!-- 用來搜尋 -->
     <h2>想要阿貓還是阿狗/公母任選/地區任選</h2>
-    <p>找{{ type }}，性別{{ sex }}</p>
-    <p v-text="'我要找' + type + '性別' + sex"></p>
     <div>
       <!-- <div v-pre> -->
       <select v-model="type">
@@ -85,9 +85,8 @@ select {
       <span>彰化</span>
     </div>
     <hr />
-    <!-- FOREACH -->
+
     <h2>等待家的毛孩們</h2>
-    <!-- <v-row> -->
     <button @click="prevPage">上一頁</button>
     <span>❮{{ currentPage + 1 }} / {{ totalPages }}❯</span>
     <button @click="nextPage">下一頁</button>{{ itemsPerPage }}
@@ -95,19 +94,20 @@ select {
       <option value="6">每頁6筆</option>
       <option value="12">每頁12筆</option>
       <option value="18">每頁18筆</option>
+      <option value="24">每頁24筆</option>
     </select>
-    <div id="animals" @scroll="handleScroll">
+    <div id="animals" @scroll="handleScroll" ref="showAnimalArea">
       <v-card
         v-for="item in currentPageData"
         :key="item.aniaml_id"
         elevation="8"
         class="card"
       >
-        <v-row>
+        <v-row class="justify-center">
           <v-card-title>
             <cat v-if="item.animal_kind === '貓'" />
             <dog v-else />
-            <p>
+            <p class="m-0">
               {{ item.animal_Variety }}(
               <span v-if="item.animal_sex === 'F'">母</span>
               <span v-else>公</span>
@@ -213,6 +213,13 @@ export default {
     nextPage() {
       if (this.currentPage < this.totalPages - 1) {
         this.currentPage++;
+        this.scrollToTop();
+      }
+    },
+    scrollToTop() {
+      const area = this.$refs.showAnimalArea;
+      if (area) {
+        area.scrollTop = 0;
       }
     },
     // 切換到上一頁
