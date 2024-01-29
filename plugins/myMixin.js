@@ -13,10 +13,10 @@ export const myMixin = {
 
   },
   beforeCreate() {
-    console.log('beforeCreate 生命週期可以共用');
+    console.log('beforeCreate mixin');
   },
   mounted() {
-    console.log('mounted mixin112233');
+    console.log('mounted mixin');
   },
   beforeDestroy() {
 

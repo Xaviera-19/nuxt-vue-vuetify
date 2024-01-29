@@ -66,8 +66,7 @@ select {
   <div>
     <!-- 用來搜尋 -->
     <h2>想要阿貓還是阿狗/公母任選/地區任選</h2>
-    <div>
-      <!-- <div v-pre> -->
+    <div v-pre>
       <select v-model="type">
         <option value="">傻子才選我全都要</option>
         <option value="狗">選阿狗</option>
@@ -83,6 +82,7 @@ select {
       <span>高雄</span>
       <input type="checkbox" v-model="cities" value="彰化" id="" />
       <span>彰化</span>
+      <span v-text="type + sex + cities"></span>
     </div>
     <hr />
 
@@ -96,7 +96,7 @@ select {
       <option value="18">每頁18筆</option>
       <option value="24">每頁24筆</option>
     </select>
-    <div id="animals" @scroll="handleScroll" ref="showAnimalArea">
+    <div id="animals" @scroll ="handleScroll" ref="showAnimalArea">
       <v-card
         v-for="item in currentPageData"
         :key="item.aniaml_id"
@@ -240,7 +240,6 @@ export default {
     handleScroll(event) {
       // 在這裡處理滾動事件
       console.log("滾動事件", event);
-      console.log(event.preventDefault());
     },
     showDetail(item, id) {
       this.$store.commit("setItemDetail", item);
