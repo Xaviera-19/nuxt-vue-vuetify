@@ -19,10 +19,10 @@ hr {
     <hr />
     <p>不具名插槽 emit傳 子傳父</p>
     <emitTest ref="myRef" @emitFun="handleEmit"></emitTest>
-
+    <v-btn @click="refClick">refBtn</v-btn>
     <hr />
     <p>作用域</p>
-    <scopedSlot  :items="fakeData">
+    <scopedSlot :items="fakeData">
       <template v-slot="{ item }">
         <span>{{ item.name }}</span>
       </template>
@@ -61,7 +61,7 @@ export default {
   },
   data() {
     return {
-      // 眉目傳情
+      // PROP的眉目傳情
       propText: "第一個PROP傳",
       propText2: "第二個PROP傳",
       num: 1,
@@ -80,7 +80,7 @@ export default {
     changeNum() {
       this.num = 0;
     },
-    onClick() {
+    refClick() {
       this.$refs.myRef.refMsg();
     },
     //store內的mutation
@@ -109,7 +109,7 @@ export default {
     },
   },
   mounted() {
-    this.$refs.myRef.refMsg();
+    // this.$refs.myRef.refMsg();
   },
 };
 </script>
